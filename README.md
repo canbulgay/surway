@@ -35,7 +35,7 @@ Surway, kullanıcı dostu bir anket yönetim sistemidir. Bu sistem ile kolayca a
 
 ### Anket Yönetim Paneli
 
-![Anket Yönetim Paneli](screenshots/admin-panel.png)
+![Anket Yönetim Paneli](https://raw.githubusercontent.com/canbulgay/surway/master/screenshots/admin-panel.jpg)
 
 - Kategorilere göre soru ve bilgi kartları yönetimi
 - Sürükle-bırak ile kart sıralama
@@ -43,7 +43,7 @@ Surway, kullanıcı dostu bir anket yönetim sistemidir. Bu sistem ile kolayca a
 
 ### Anket Görüntüleme
 
-![Anket Görüntüleme](screenshots/survey-view.png)
+![Anket Görüntüleme](https://raw.githubusercontent.com/canbulgay/surway/master/screenshots/survey-view.jpg)
 
 - Kullanıcı dostu anket görüntüleme arayüzü
 - İleri-geri navigasyon
@@ -54,7 +54,7 @@ Surway, kullanıcı dostu bir anket yönetim sistemidir. Bu sistem ile kolayca a
 1. Projeyi klonlayın
 
 ```bash
-git clone https://github.com/kullaniciadi/surway.git
+git clone https://github.com/canbulgay/surway.git
 ```
 
 2. Proje dizinine gidin
