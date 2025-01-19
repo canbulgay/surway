@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anket Yönetim Paneli</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Dil Seçimi -->
+    <div class="language-selector">
+        <button id="languageBtn" class="language-btn">
+            <i class="fas fa-globe"></i>
+            <span id="currentLanguage">TR</span>
+        </button>
+        <div id="languageMenu" class="language-menu">
+            <button class="language-option" data-lang="tr">
+                <span>Türkçe</span>
+                <span class="lang-code">TR</span>
+            </button>
+            <button class="language-option" data-lang="en">
+                <span>English</span>
+                <span class="lang-code">EN</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Anket Yönetim Paneli</h1>
+            <div class="header-actions">
+                <button id="createCategoryBtn" class="secondary-btn">
+                    <i class="fas fa-folder-plus"></i> Yeni Kategori
+                </button>
+                <button id="createQuestionBtn" class="primary-btn">
+                    <i class="fas fa-plus"></i> Yeni Kart Ekle
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <div class="panel-container">
+                <section class="categories-section">
+                    <h2>Kategoriler</h2>
+                    <div class="categories-list" id="categoriesList">
+                        <!-- Kategoriler burada listelenecek -->
+                    </div>
+                    <div class="no-categories" id="noCategories">
+                        <p>Henüz kategori eklenmemiş.</p>
+                    </div>
+                </section>
+
+                <section class="question-pool">
+                    <h2>Kart Havuzu</h2>
+                    <div class="selected-category" id="selectedCategory">
+                        <span class="category-name">Tüm Sorular</span>
+                    </div>
+                    <div id="questionPool" class="draggable-container"></div>
+                </section>
+
+                <section class="active-survey">
+                    <h2>Aktif Anket</h2>
+                    <div id="activeSurvey" class="draggable-container"></div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Kategori Oluşturma/Düzenleme Modal -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="categoryModalTitle">Yeni Kategori</h2>
+            <form id="categoryForm">
+                <input type="hidden" id="categoryId">
+                <div class="form-group">
+                    <label for="categoryName">Kategori Adı:</label>
+                    <input type="text" id="categoryName" required>
+                </div>
+                <div class="form-group">
+                    <label for="categoryType">Kategori Tipi:</label>
+                    <select id="categoryType" required>
+                        <option value="">Tip Seçin</option>
+                        <option value="question">Soru</option>
+                        <option value="information">Bilgi</option>
+                    </select>
+                </div>
+                <button type="submit" class="primary-btn">Kaydet</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Soru/Bilgi Oluşturma Modal -->
+    <div id="questionModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Yeni Kart Oluştur</h2>
+            <form id="questionForm">
+                <input type="hidden" id="questionId">
+                <input type="hidden" id="questionCategory">
+                <div class="form-group">
+                    <label for="questionTitle">Kart Başlığı:</label>
+                    <input type="text" id="questionTitle" required>
+                </div>
+
+                <!-- Soru tipi için alanlar -->
+                <div id="questionTypeFields">
+                    <div class="form-group">
+                        <label for="answerType">Cevap Tipi:</label>
+                        <select id="answerType" required>
+                            <option value="multiple">Çoktan Seçmeli</option>
+                            <option value="textarea">Açık Uçlu</option>
+                        </select>
+                    </div>
+                    <div id="optionsContainer" class="form-group">
+                        <label>Seçenekler:</label>
+                        <div id="optionsList">
+                            <div class="option-item">
+                                <input type="text" class="option-input" placeholder="Seçenek 1" required>
+                                <label class="correct-answer">
+                                    <input type="radio" name="correctAnswer" value="0" required>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <button type="button" class="remove-option" disabled>
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" id="addOptionBtn" class="secondary-btn">
+                            <i class="fas fa-plus"></i> Seçenek Ekle
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bilgi tipi için alanlar -->
+                <div id="informationTypeFields" style="display: none;">
+                    <div class="form-group">
+                        <label for="description">Açıklama:</label>
+                        <textarea id="description" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageUpload">Görsel:</label>
+                        <input type="file" id="imageUpload" accept="image/*">
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="primary-btn">Kaydet</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Silme Onay Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h2>Silme Onayı</h2>
+            <p id="deleteMessage">Bu öğeyi silmek istediğinizden emin misiniz?</p>
+            <div class="modal-buttons">
+                <button id="confirmDelete" class="danger-btn">
+                    <i class="fas fa-trash"></i> Evet, Sil
+                </button>
+                <button id="cancelDelete" class="secondary-btn">
+                    <i class="fas fa-times"></i> İptal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js" type="module"></script>
+</body>
+</html>

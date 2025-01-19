@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surway</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Surway</h1>
+            <a href="/admin" class="admin-link">
+                <i class="fas fa-cog"></i> Yönetim Paneli
+            </a>
+        </header>
+
+        <main>
+            <div id="surveyContainer" class="survey-container">
+                <div id="questionContainer" class="question-container">
+                    <!-- Sorular burada dinamik olarak gösterilecek -->
+                </div>
+
+                <div>
+                    <div class="navigation-buttons">
+                        <button id="prevBtn" class="nav-btn" disabled>
+                            <i class="fas fa-arrow-left"></i> Önceki
+                        </button>
+                        <button id="nextBtn" class="nav-btn">
+                            Sonraki <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button id="submitBtn" class="submit-btn" style="display: none;">
+                            Gönder <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+        
+                    <div class="progress-container">
+                        <div id="progressBar" class="progress-bar"></div>
+                        <span id="progressText">Soru 1/5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="completionMessage" class="completion-message" style="display: none;">
+                <h2>Anket Tamamlandı!</h2>
+                <p>Katılımınız için teşekkür ederiz.</p>
+                <button id="restartBtn" class="restart-btn">
+                    <i class="fas fa-redo"></i> Yeniden Başla
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
